@@ -21,11 +21,10 @@ void copyArray();
 int main()
 {
     fillArray();
-    RoundR();
     copyArray();
-    printArray2();
+    //printArray2();
     RoundR();
-    printArray2();
+    //printArray2();
 }
 void printArray()
 {// made this function just for testing
@@ -95,6 +94,7 @@ void RoundR()
         if(newArrayForManipulating[spotInArray] > 0)
         {
             newArrayForManipulating[spotInArray] -= 50;
+            totalTime += 10;
             totalTime += 50;
             if(newArrayForManipulating[spotInArray] == 0)
             {
@@ -108,7 +108,6 @@ void RoundR()
         if(spotInArray >= 50)spotInArray = 0;
         
     }
-    int t1 = upper;
-    t1 = t1/50;
-    cout << t1 << endl;
+    int t1 = upper/50;
+    cout << "The average number of cycles executed before each processes is completed using Round Robin is " << t1 << " cycles." << endl;
 }
