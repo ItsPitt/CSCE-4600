@@ -17,7 +17,11 @@ void fillArray();
 void printArray();
 void printArray2();
 void RoundR();
+void FIFO();
+void SJF();
 void copyArray();
+static int numOfProcesses = 50;
+
 int main()
 {
     fillArray();
@@ -25,6 +29,10 @@ int main()
     //printArray2();
     RoundR();
     //printArray2();
+    copyArray();
+    FIFO();
+    copyArray();
+    SJF();
 }
 void printArray()
 {// made this function just for testing
@@ -42,16 +50,14 @@ void printArray2()
 }
 void fillArray()
 {
-    /*This fills the array with a random amount of process values.
-    Change the num const if you need to change how many processes you want.*/
+    /*This fills the array with a random amount of process values.*/
     
-    static int num = 50;
     static int offset = 500;
-    int total = num * 6000;
+    int total = numOfProcesses * 6000;
     int ran;
-    int newNum = num;
+    int newNum = numOfProcesses;
     
-    for (int i = 0; i <= num; i++)
+    for (int i = 0; i <= numOfProcesses; i++)
     {
         p[i] = 0;
     }
@@ -108,6 +114,30 @@ void RoundR()
         if(spotInArray >= 50)spotInArray = 0;
         
     }
-    int t1 = upper/50;
+    int t1 = upper/numOfProcesses;
     cout << "The average number of cycles executed before each processes is completed using Round Robin is " << t1 << " cycles." << endl;
 }
+void FIFO()
+{
+    int upper = 0;
+    int lower = 0;
+    int totalCycles = 0;
+    totalCycles += newArrayForManipulating[0];
+    upper += totalCycles;
+    lower++;
+    for (int i = 1; i < 50; i++)
+    {
+        totalCycles += 10;
+        totalCycles += newArrayForManipulating[i];
+        upper += totalCycles;
+        lower++;
+    }
+    
+    int t1 = upper/lower;
+    cout << "The average number of cycles executed before each processes is completed using FIFO is " << t1 << " cycles." << endl;
+}
+void SJF()
+{
+
+}
+
