@@ -32,7 +32,9 @@ int main()
     copyArray();
     FIFO();
     copyArray();
+    //printArray2();
     SJF();
+    //printArray2();
 }
 void printArray()
 {// made this function just for testing
@@ -138,6 +140,33 @@ void FIFO()
 }
 void SJF()
 {
+    int upper = 0;
+    int lower = 0;
+    int totalCycles = 0;
+    totalCycles += newArrayForManipulating[0];
+    newArrayForManipulating[0] = 0;
+    upper += totalCycles;
+    lower++;
+    for (int i = 1; i < 50; i++)
+    {
+        int smallestNumber = 11001;
+        int spot = 0;
+        for (int j = 1; j < 50; j++)
+        {
+            if(newArrayForManipulating[j] < smallestNumber && newArrayForManipulating[j] != 0)
+            {
+                smallestNumber = newArrayForManipulating[j];
+                spot = j;
+            }
+        }
+        totalCycles += 10;
+        totalCycles += newArrayForManipulating[spot];
+        newArrayForManipulating[spot] = 0;
+        upper += totalCycles;
+        lower++;
+    }
 
+    
+    int t1 = upper/lower;
+    cout << "The average number of cycles executed before each processes is completed using SJF is " << t1 << " cycles." << endl;
 }
-
