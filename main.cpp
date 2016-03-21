@@ -96,6 +96,7 @@ void RoundR()
     int lower = 0;
     int totalTime = 0;
     int spotInArray = 0;
+    int AWT,AWTcounter=0,AWTlower=1,AWTupper=0;
     while (counter < 100)
     {
         if(newArrayForManipulating[spotInArray] == 0)counter++;
@@ -116,33 +117,49 @@ void RoundR()
         if(spotInArray >= 50)spotInArray = 0;
         
     }
-    int t1 = upper/numOfProcesses;
+    for (int i = 0; i < 49; i++)
+    {
+        AWTcounter += 60;
+        AWTupper += AWTcounter;
+        AWTlower++;
+    }
+    AWT = AWTupper/AWTlower;
+    int t1 = upper/lower;
     cout << "The average number of cycles executed before each processes is completed using Round Robin is " << t1 << " cycles." << endl;
+    //cout << AWT << endl << AWTupper << endl << AWTlower << endl;
+    cout << "The AWT using RR is " << AWT << endl;
 }
 void FIFO()
 {
     int upper = 0;
     int lower = 0;
     int totalCycles = 0;
+    int AWT,AWTlower=1,AWTupper=0;
     totalCycles += newArrayForManipulating[0];
     upper += totalCycles;
     lower++;
     for (int i = 1; i < 50; i++)
     {
+        AWTupper += totalCycles;
         totalCycles += 10;
         totalCycles += newArrayForManipulating[i];
         upper += totalCycles;
+    
+        AWTlower++;
         lower++;
     }
-    
+    AWT = AWTupper/AWTlower;
     int t1 = upper/lower;
     cout << "The average number of cycles executed before each processes is completed using FIFO is " << t1 << " cycles." << endl;
+    //cout << AWT << endl << AWTupper << endl << AWTlower << endl;
+    cout << "The AWT using FIFO is " << AWT << endl;
 }
 void SJF()
 {
     int upper = 0;
     int lower = 0;
     int totalCycles = 0;
+    int AWT,AWTlower=1,AWTupper=0;
     totalCycles += newArrayForManipulating[0];
     newArrayForManipulating[0] = 0;
     upper += totalCycles;
@@ -159,14 +176,18 @@ void SJF()
                 spot = j;
             }
         }
+        AWTupper += totalCycles;
         totalCycles += 10;
         totalCycles += newArrayForManipulating[spot];
         newArrayForManipulating[spot] = 0;
         upper += totalCycles;
         lower++;
+        AWTlower++;
     }
 
-    
+    AWT = AWTupper/AWTlower;
     int t1 = upper/lower;
     cout << "The average number of cycles executed before each processes is completed using SJF is " << t1 << " cycles." << endl;
+    //cout << AWT << endl << AWTupper << endl << AWTlower << endl;
+    cout << "The AWT using SJF is " << AWT << endl;
 }
