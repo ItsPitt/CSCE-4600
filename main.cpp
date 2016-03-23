@@ -96,17 +96,20 @@ void RoundR()
     int lower = 0;
     int totalTime = 0;
     int spotInArray = 0;
-    int AWT,AWTcounter=0,AWTlower=1,AWTupper=0;
+    int AWT,AWTlower=1,AWTupper=0;
+    int savedTime =0;
     while (counter < 100)
     {
         if(newArrayForManipulating[spotInArray] == 0)counter++;
         if(newArrayForManipulating[spotInArray] > 0)
         {
+            savedTime = totalTime;
             newArrayForManipulating[spotInArray] -= 50;
             totalTime += 10;
             totalTime += 50;
             if(newArrayForManipulating[spotInArray] == 0)
             {
+                AWTupper += savedTime;
                 upper += totalTime;
                 lower++;
             }
@@ -117,10 +120,11 @@ void RoundR()
         if(spotInArray >= 50)spotInArray = 0;
         
     }
+    AWTupper -= savedTime;
     for (int i = 0; i < 49; i++)
     {
-        AWTcounter += 60;
-        AWTupper += AWTcounter;
+        //AWTcounter += 60;
+        //AWTupper += AWTcounter;
         AWTlower++;
     }
     AWT = AWTupper/AWTlower;
