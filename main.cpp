@@ -11,6 +11,7 @@
 #include <stdlib.h>
 using namespace std;
 
+
 int p[50];
 int newArrayForManipulating[50];
 void fillArray();
