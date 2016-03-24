@@ -31,13 +31,13 @@ int main()
     copyArray();
     //printArray2();
     cout << "Single Processor:\n";
-    //RoundR();
+    RoundR();
     //printArray2();
     copyArray();
-    //FIFO();
+    FIFO();
     copyArray();
     //printArray2();
-    //SJF();
+    SJF();
     //printArray2();
     cout << "\n4 Processors:\n";
     copyArray();
@@ -213,7 +213,7 @@ void RoundR4P()
     int P1lower = 0,P2lower = 0,P3lower = 0,P4lower = 0;
     int spotInArray = 0;
     int P1AWT, P2AWT, P3AWT, P4AWT;
-    int AWTlower=1,P1AWTupper=0,P2AWTupper=0,P3AWTupper=0,P4AWTupper=0;
+    int P1AWTupper=0,P2AWTupper=0,P3AWTupper=0,P4AWTupper=0;
     int P1savedTime =0,P2savedTime =0,P3savedTime =0,P4savedTime =0;
     int P1=0,P2=0,P3=0,P4=0;
     int Processor = 0;
@@ -291,16 +291,11 @@ void RoundR4P()
     P2AWTupper -= P2savedTime;
     P3AWTupper -= P3savedTime;
     P4AWTupper -= P4savedTime;
-    for (int i = 0; i < 49; i++)
-    {
-        //AWTcounter += 60;
-        //AWTupper += AWTcounter;
-        AWTlower++;
-    }
-    P1AWT = P1AWTupper/AWTlower;
-    P2AWT = P2AWTupper/AWTlower;
-    P3AWT = P3AWTupper/AWTlower;
-    P4AWT = P4AWTupper/AWTlower;
+
+    P1AWT = P1AWTupper/13;
+    P2AWT = P2AWTupper/13;
+    P3AWT = P3AWTupper/12;
+    P4AWT = P4AWTupper/12;
     int AAWT = (P1AWT+P2AWT+P3AWT+P4AWT)/4;
     int t1 = P1upper/13;
     int t2 = P2upper/13;
@@ -321,7 +316,6 @@ void FIFO4P()
     int Processor = 0;
     int P1AWT, P2AWT, P3AWT, P4AWT;
     int AWTlower=1,P1AWTupper=0,P2AWTupper=0,P3AWTupper=0,P4AWTupper=0;
-    int finalNum = newArrayForManipulating[49]- newArrayForManipulating[48];
     totalCycles += newArrayForManipulating[0];
     upper += totalCycles;
     lower++;
@@ -329,42 +323,42 @@ void FIFO4P()
     {
         if (Processor%4 == 0)
         {
-            AWTupper += totalCycles;
+            P1AWTupper += totalCycles;
             totalCycles += 10;
             totalCycles += newArrayForManipulating[i];
-            upper += totalCycles;
+            P1upper += totalCycles;
         
             AWTlower++;
             lower++;
         }
-        if (Processor%4 == 1)
+        else if (Processor%4 == 1)
         {
-            AWTupper += totalCycles;
+            P2AWTupper += totalCycles;
             totalCycles += 10;
             totalCycles += newArrayForManipulating[i];
-            upper += totalCycles;
+            P2upper += totalCycles;
             
             AWTlower++;
             lower++;
         }
 
-        if (Processor%4 == 2)
+        else if (Processor%4 == 2)
         {
-            AWTupper += totalCycles;
+            P3AWTupper += totalCycles;
             totalCycles += 10;
             totalCycles += newArrayForManipulating[i];
-            upper += totalCycles;
+            P3upper += totalCycles;
             
             AWTlower++;
             lower++;
         }
 
-        if (Processor%4 == 3)
+        else if (Processor%4 == 3)
         {
-            AWTupper += totalCycles;
+            P4AWTupper += totalCycles;
             totalCycles += 10;
             totalCycles += newArrayForManipulating[i];
-            upper += totalCycles;
+            P4upper += totalCycles;
             
             AWTlower++;
             lower++;
@@ -374,32 +368,33 @@ void FIFO4P()
     
     }
 
-    P1AWT = P1AWTupper/AWTlower;
-    P2AWT = P2AWTupper/AWTlower;
-    P3AWT = P3AWTupper/AWTlower;
-    P4AWT = P4AWTupper/AWTlower;
+    P1AWT = P1AWTupper/52;
+    P2AWT = P2AWTupper/52;
+    P3AWT = P3AWTupper/48;
+    P4AWT = P4AWTupper/48;
     int AAWT = (P1AWT+P2AWT+P3AWT+P4AWT)/4;
-    int t1 = P1upper/13;
-    int t2 = P2upper/13;
-    int t3 = P3upper/12;
-    int t4 = P4upper/12;
+    int t1 = P1upper/52;
+    int t2 = P2upper/52;
+    int t3 = P3upper/48;
+    int t4 = P4upper/48;
     int t5 = t1+t2+t3+t4;
     t5 = t5/4;
-    cout << "The average number of cycles executed before each processes is completed using FIFO is " << t1 << " cycles." << endl;
+    cout << "FIFO\n" << t1 << endl<< t2 << endl<< t3 << endl<< t4 << endl << t5 << endl;
+    //cout << "The average number of cycles executed before each processes is completed using FIFO is " << t1 << " cycles." << endl;
     //cout << AWT << endl << AWTupper << endl << AWTlower << endl;
     cout << "FIFO AWT:\n" << P1AWT << endl<< P2AWT << endl<< P3AWT << endl<< P4AWT << endl<< AAWT << endl << endl;
 }
 void SJF4P()
 {
-    int upper = 0;
+    int P1upper = 0,P2upper = 0,P3upper = 0,P4upper = 0;
     int lower = 0;
     int totalCycles = 0;
-    int Processor = 0;
-    int saved48 = 0;
-    int AWT,AWTlower=1,AWTupper=0;
+    int Processor = 1;
+    int P1AWT, P2AWT, P3AWT, P4AWT;
+    int AWTlower=1,P1AWTupper=0,P2AWTupper=0,P3AWTupper=0,P4AWTupper=0;
     totalCycles += newArrayForManipulating[0];
     newArrayForManipulating[0] = 0;
-    upper += totalCycles;
+    P1upper += totalCycles;
     lower++;
     for (int i = 1; i < 50; i++)
     {
@@ -413,30 +408,51 @@ void SJF4P()
                 spot = j;
             }
         }
-        AWTupper += totalCycles;
         totalCycles += 10;
+        totalCycles += newArrayForManipulating[spot];
         if (Processor%4 == 0)
         {
+            P1AWTupper += totalCycles;
+            totalCycles += 10;
             totalCycles += newArrayForManipulating[spot];
+            P1upper += totalCycles;
         }
-        if(i == 48)
+        if (Processor%4 == 0)
         {
-            saved48 += newArrayForManipulating[spot];
+            P2AWTupper += totalCycles;
+            totalCycles += 10;
+            totalCycles += newArrayForManipulating[spot];
+            P2upper += totalCycles;
         }
-        if(i == 49)
+        if (Processor%4 == 0)
         {
-            totalCycles += newArrayForManipulating[spot] - saved48;
+            P3AWTupper += totalCycles;
+            totalCycles += 10;
+            totalCycles += newArrayForManipulating[spot];
+            P3upper += totalCycles;
+        }
+        if (Processor%4 == 0)
+        {
+            P4AWTupper += totalCycles;
+            totalCycles += 10;
+            totalCycles += newArrayForManipulating[spot];
+            P4upper += totalCycles;
         }
         newArrayForManipulating[spot] = 0;
-        upper += totalCycles;
-        lower++;
-        AWTlower++;
         Processor++;
     }
-    AWT = AWTupper/AWTlower;
-    int t1 = upper/lower;
-    cout << "The average number of cycles executed before each processes is completed using SJF is " << t1 << " cycles." << endl;
+    P1AWT = P1AWTupper/104;
+    P2AWT = P2AWTupper/104;
+    P3AWT = P3AWTupper/96;
+    P4AWT = P4AWTupper/96;
+    int AAWT = (P1AWT+P2AWT+P3AWT+P4AWT)/4;
+    int t1 = P1upper/104;
+    int t2 = P2upper/104;
+    int t3 = P3upper/96;
+    int t4 = P4upper/96;
+    int t5 = t1+t2+t3+t4;
+    t5 = t5/4;
+    cout << "SJF\n" << t1 << endl<< t2 << endl<< t3 << endl<< t4 << endl << t5 << endl;
     //cout << AWT << endl << AWTupper << endl << AWTlower << endl;
-    cout << "The AWT using SJF is " << AWT << endl;
+    cout << "SJF AWT:\n" << P1AWT << endl<< P2AWT << endl<< P3AWT << endl<< P4AWT << endl<< AAWT << endl << endl;
 }
-
